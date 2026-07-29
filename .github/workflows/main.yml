@@ -1,31 +1,75 @@
-name: test
+name: main
 
 on:
   push:
     branches:
       - master
-  pull_request:
-    branches:
-      - master
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  SKIP_INSTALL_SIMPLE_GIT_HOOKS: true
 
 jobs:
-  test:
+  contributors:
+    if: "${{ github.event.head_commit.message != 'build: contributors' }}"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: lts/*
       - name: Setup PNPM
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
           version: latest
       - name: Install
         run: pnpm install --dangerously-allow-all-builds
+      - name: Contributors
+        run: |
+          git config --global user.email "${{ secrets.GIT_EMAIL }}"
+          git config --global user.name "${{ secrets.GIT_USERNAME }}"
+          pnpm contributors
+      - name: Push changes
+        run: |
+          git push origin ${{ github.head_ref }}
+
+  release:
+    if: |
+      !startsWith(github.event.head_commit.message, 'chore(release):') &&
+      !startsWith(github.event.head_commit.message, 'docs:') &&
+      !startsWith(github.event.head_commit.message, 'ci:')
+    needs: [contributors]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v6
+        with:
+          version: latest
+      - name: Sync master
+        run: |
+          git config --global user.email "${{ secrets.GIT_EMAIL }}"
+          git config --global user.name "${{ secrets.GIT_USERNAME }}"
+          git pull origin master
+      - name: Install
+        run: pnpm install --dangerously-allow-all-builds
       - name: Test
-        run: npm test
+        run: pnpm test
       - name: Report
         run: npx c8 report --reporter=text-lcov > coverage/lcov.info
       - name: Coverage
@@ -33,11 +77,12 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Release
-        if: ${{ github.ref == 'refs/heads/master' && !startsWith(github.event.head_commit.message, 'chore(release):') && !startsWith(github.event.head_commit.message, 'docs:') }}
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          git config --global user.email ${{ secrets.GIT_EMAIL }}
-          git config --global user.name ${{ secrets.GIT_USERNAME }}
-          npm run release
+          if git log -1 --format='%s' | grep -qE '^chore\(release\)'; then
+            echo "tip is already a release commit — nothing to publish"
+            exit 0
+          fi
+          pnpm release
