@@ -1,7 +1,7 @@
 # bimi-url
 
 ![Last version](https://img.shields.io/github/tag/kikobeats/bimi-url.svg?style=flat-square)
-[![Coverage Status](https://img.shields.io/coveralls/kikobeats/bimi-url.svg?style=flat-square)](https://coveralls.io/github/kikobeats/bimi-url)
+[![Coverage Status](https://img.shields.io/coveralls/Kikobeats/bimi-url.svg?style=flat-square)](https://coveralls.io/github/Kikobeats/bimi-url)
 [![NPM Status](https://img.shields.io/npm/dm/bimi-url.svg?style=flat-square)](https://www.npmjs.org/package/bimi-url)
 
 > Get a logo from BIMI DNS record
