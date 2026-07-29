@@ -2,7 +2,7 @@
   "name": "bimi-url",
   "description": "Get a logo from BIMI DNS record",
   "homepage": "https://github.com/kikobeats/bimi-url",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "types": "src/index.d.ts",
   "exports": {
     ".": {
