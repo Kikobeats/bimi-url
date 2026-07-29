@@ -1,3 +1,4 @@
+## [1.0.0](https://github.com/kikobeats/bimi-url/compare/v0.0.2...v1.0.0) (2026-07-29)
 ## 0.0.3 (2026-07-29)
 # Changelog
 
