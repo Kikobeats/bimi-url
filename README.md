@@ -1,8 +1,8 @@
-# logo-bimi
+# bimi-url
 
-![Last version](https://img.shields.io/github/tag/kikobeats/logo-bimi.svg?style=flat-square)
-[![Coverage Status](https://img.shields.io/coveralls/kikobeats/logo-bimi.svg?style=flat-square)](https://coveralls.io/github/kikobeats/logo-bimi)
-[![NPM Status](https://img.shields.io/npm/dm/logo-bimi.svg?style=flat-square)](https://www.npmjs.org/package/logo-bimi)
+![Last version](https://img.shields.io/github/tag/kikobeats/bimi-url.svg?style=flat-square)
+[![Coverage Status](https://img.shields.io/coveralls/kikobeats/bimi-url.svg?style=flat-square)](https://coveralls.io/github/kikobeats/bimi-url)
+[![NPM Status](https://img.shields.io/npm/dm/bimi-url.svg?style=flat-square)](https://www.npmjs.org/package/bimi-url)
 
 > Get a logo from BIMI DNS record
 
@@ -26,13 +26,13 @@ Coverage is the trade-off. It's common among large brands and rare in the long t
 ## Install
 
 ```bash
-$ npm install logo-bimi --save
+$ npm install bimi-url --save
 ```
 
 ## Usage
 
 ```js
-const createGetLogo = require('logo-bimi')
+const createGetLogo = require('bimi-url')
 
 const getLogo = createGetLogo()
 
@@ -75,7 +75,7 @@ The default store is an in-memory map that never evicts, so a long running proce
 
 ```js
 const KeyvRedis = require('@keyvhq/redis')
-const createGetLogo = require('logo-bimi')
+const createGetLogo = require('bimi-url')
 
 const getLogo = createGetLogo({
   keyvOpts: {
@@ -88,7 +88,7 @@ const getLogo = createGetLogo({
 ##### resolveLogoUrl
 
 Type: `function`<br>
-Default: `require('logo-bimi').resolveLogoUrl`
+Default: `require('bimi-url').resolveLogoUrl`
 
 It determines if the logo URL published in the record is valid, returning the URL or `undefined`.
 
@@ -102,7 +102,7 @@ Default: `require('dns').promises.resolveTxt`
 The DNS resolver used to read the TXT record. Provide your own to run the lookup over [DNS over HTTPS](https://datatracker.ietf.org/doc/html/rfc8484) on runtimes without access to `node:dns`:
 
 ```js
-const createGetLogo = require('logo-bimi')
+const createGetLogo = require('bimi-url')
 
 const getLogo = createGetLogo({
   resolveTxt: async hostname => {
@@ -127,7 +127,7 @@ The BIMI selector to query, used as `<selector>._bimi.<domain>`.
 
 ## License
 
-**logo-bimi** © [Kiko Beats](https://kikobeats.com), released under the [MIT](https://github.com/kikobeats/logo-bimi/blob/master/LICENSE.md) License.<br>
-Authored and maintained by [Kiko Beats](https://kikobeats.com) with help from [contributors](https://github.com/kikobeats/logo-bimi/contributors).
+**bimi-url** © [Kiko Beats](https://kikobeats.com), released under the [MIT](https://github.com/kikobeats/bimi-url/blob/master/LICENSE.md) License.<br>
+Authored and maintained by [Kiko Beats](https://kikobeats.com) with help from [contributors](https://github.com/kikobeats/bimi-url/contributors).
 
 > [kikobeats.com](https://kikobeats.com) · GitHub [Kiko Beats](https://github.com/kikobeats) · Twitter [@kikobeats](https://twitter.com/kikobeats)

@@ -1,7 +1,7 @@
 {
-  "name": "logo-bimi",
+  "name": "bimi-url",
   "description": "Get a logo from BIMI DNS record",
-  "homepage": "https://github.com/kikobeats/logo-bimi",
+  "homepage": "https://github.com/kikobeats/bimi-url",
   "version": "0.0.0",
   "types": "src/index.d.ts",
   "exports": {
@@ -17,10 +17,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kikobeats/logo-bimi.git"
+    "url": "git+https://github.com/kikobeats/bimi-url.git"
   },
   "bugs": {
-    "url": "https://github.com/kikobeats/logo-bimi/issues"
+    "url": "https://github.com/kikobeats/bimi-url/issues"
   },
   "keywords": [
     "bimi",
