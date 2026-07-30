@@ -1,6 +1,6 @@
 {
   "name": "bimi-url",
-  "description": "Get a logo from BIMI DNS record",
+  "description": "Resolve BIMI DNS TXT records and fetch the brand logo URL for an email domain.",
   "homepage": "https://github.com/kikobeats/bimi-url",
   "version": "1.0.1",
   "types": "src/index.d.ts",
@@ -25,8 +25,15 @@
   },
   "keywords": [
     "bimi",
+    "brand",
     "dns",
-    "logo"
+    "domain",
+    "email",
+    "indicator",
+    "logo",
+    "rfc",
+    "svg",
+    "txt"
   ],
   "dependencies": {
     "@keyvhq/memoize": "~2.2.4",
