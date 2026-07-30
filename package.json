@@ -2,7 +2,7 @@
   "name": "bimi-url",
   "description": "Resolve BIMI DNS TXT records and fetch the brand logo URL for an email domain.",
   "homepage": "https://github.com/kikobeats/bimi-url",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "types": "src/index.d.ts",
   "exports": {
     ".": {
