@@ -93,11 +93,17 @@ const createGetLogo = ({
    * rejection resolves as `undefined` rather than propagating: a caller reading
    * a logo has nothing to do with a DNS failure other than move on. Only the
    * absence is cached, so a failure is retried on the next call.
+   *
+   * A `TypeError` is not one of those failures: it is the options being wrong,
+   * and swallowing it turns a misconfigured instance into one that answers
+   * `undefined` for every domain forever.
    */
   return domain =>
     fn(toHostname(domain, selector))
       .then(value => (value === null ? undefined : value))
-      .catch(() => undefined)
+      .catch(error => {
+        if (error instanceof TypeError) throw error
+      })
 }
 
 module.exports = createGetLogo
