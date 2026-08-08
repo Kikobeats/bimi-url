@@ -47,7 +47,7 @@ const main = async () => {
 
 The lookup is done against the registrable domain, meaning `blog.example.com` has to be passed as `example.com`.
 
-It never rejects: a domain without a record, a logo that can't be fetched, and a DNS failure all resolve as `undefined`.
+A domain without a record, a logo that can't be fetched, and a DNS failure all resolve as `undefined`. The only rejection is a `TypeError`, meaning the options are wrong and every call would answer `undefined` otherwise.
 
 ## API
 
@@ -62,6 +62,16 @@ Returns a `getLogo(domain)` function, memoized per hostname queried.
 Type: `object`
 
 Any option to be passed to [got](https://github.com/sindresorhus/got#options) when the logo URL is checked.
+
+Passing `cache` needs the patched `cacheable-request`, since the one got resolves never settles when the origin keeps the connection alive:
+
+```yaml
+# pnpm-workspace.yaml
+overrides:
+  got>cacheable-request: npm:@kikobeats/cacheable-request
+```
+
+Without it, `getLogo` rejects with a `TypeError` on the first call rather than silently checking nothing.
 
 ##### keyvOpts
 

@@ -2,6 +2,7 @@
 
 const test = require('ava').default
 
+const createGetLogo = require('../src')
 const {
   LOGO_URL,
   RECORD,
@@ -110,6 +111,15 @@ test('do not cache a resolver failure', async t => {
   t.is(await getLogo('example.com'), undefined)
   t.is(await getLogo('example.com'), undefined)
   t.is(resolveTxt.calls, 2)
+})
+
+test('reject when a got option is not supported', async t => {
+  const getLogo = createGetLogo({
+    gotOpts: { cache: new Map() },
+    resolveTxt: createResolveTxt({ 'default._bimi.microlink.io': [[RECORD]] })
+  })
+
+  await t.throwsAsync(getLogo('microlink.io'), { instanceOf: TypeError })
 })
 
 test('scope the cache to the selector', async t => {

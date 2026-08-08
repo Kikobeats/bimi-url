@@ -47,6 +47,10 @@ test('return undefined when the logo is not reachable', t => {
   t.is(toLogoUrl(response({ statusCode: 404 })), undefined)
 })
 
+test('return undefined when the status is a redirect the follow stopped at', t => {
+  t.is(toLogoUrl(response({ statusCode: 302 })), undefined)
+})
+
 test('return undefined when the logo is not a SVG', t => {
   t.is(toLogoUrl(response({ contentType: 'image/png' })), undefined)
 })
@@ -87,4 +91,12 @@ test('return undefined when the logo cannot be fetched', async t => {
     await resolveLogoUrl('https://127.0.0.1:1/logo.svg', { retry: 0 }),
     undefined
   )
+})
+
+test('throw when a got option is not supported', async t => {
+  const url = await runSvgServer(t)
+
+  await t.throwsAsync(resolveLogoUrl(`${url}logo.svg`, { cache: new Map() }), {
+    instanceOf: TypeError
+  })
 })
