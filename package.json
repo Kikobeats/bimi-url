@@ -36,8 +36,8 @@
     "txt"
   ],
   "dependencies": {
-    "@keyvhq/memoize": "~2.2.4",
-    "reachable-url": "~2.1.1"
+    "@keyvhq/memoize": "~2.2.7",
+    "reachable-url": "~2.1.4"
   },
   "devDependencies": {
     "@commitlint/cli": "latest",
