@@ -10,6 +10,7 @@ on:
 
 env:
   SKIP_INSTALL_SIMPLE_GIT_HOOKS: true
+  pnpm_config_dangerously_allow_all_builds: true
 
 jobs:
   test:
@@ -29,7 +30,7 @@ jobs:
         with:
           version: latest
       - name: Install
-        run: pnpm install --dangerously-allow-all-builds
+        run: pnpm install
       - name: Test
         run: pnpm test
       - name: Report
