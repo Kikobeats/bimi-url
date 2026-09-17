@@ -93,10 +93,10 @@ test('return undefined when the logo cannot be fetched', async t => {
   )
 })
 
-test('throw when a got option is not supported', async t => {
+test('throw when an option is invalid', async t => {
   const url = await runSvgServer(t)
 
-  await t.throwsAsync(resolveLogoUrl(`${url}logo.svg`, { cache: new Map() }), {
+  await t.throwsAsync(resolveLogoUrl(`${url}logo.svg`, { maxBody: -1 }), {
     instanceOf: TypeError
   })
 })

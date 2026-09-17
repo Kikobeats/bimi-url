@@ -113,9 +113,9 @@ test('do not cache a resolver failure', async t => {
   t.is(resolveTxt.calls, 2)
 })
 
-test('reject when a got option is not supported', async t => {
+test('reject when an option is invalid', async t => {
   const getLogo = createGetLogo({
-    gotOpts: { cache: new Map() },
+    gotOpts: { maxBody: -1 },
     resolveTxt: createResolveTxt({ 'default._bimi.microlink.io': [[RECORD]] })
   })
 
