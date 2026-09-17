@@ -61,17 +61,9 @@ Returns a `getLogo(domain)` function, memoized per hostname queried.
 
 Type: `object`
 
-Any option to be passed to [got](https://github.com/sindresorhus/got#options) when the logo URL is checked.
+Any option to be passed to [reachable-url](https://github.com/Kikobeats/reachable-url) when the logo URL is checked, including [got](https://github.com/sindresorhus/got#options) options such as `cache`.
 
-Passing `cache` needs the patched `cacheable-request`, since the one got resolves never settles when the origin keeps the connection alive:
-
-```yaml
-# pnpm-workspace.yaml
-overrides:
-  got>cacheable-request: npm:@kikobeats/cacheable-request
-```
-
-Without it, `getLogo` rejects with a `TypeError` on the first call rather than silently checking nothing.
+An invalid option, like a negative `maxBody`, makes `getLogo` reject with a `TypeError` on the first call rather than silently checking nothing.
 
 ##### keyvOpts
 
